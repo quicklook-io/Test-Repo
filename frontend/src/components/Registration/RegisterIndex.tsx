@@ -93,22 +93,17 @@ const RegisterIndex = () => {
                 <Heading as="h1">Join Learning U!</Heading>
                 <FormControl isInvalid={!!errors.username}>
                   <FormLabel>Username</FormLabel>
-                  <Field as={Input} name="username" test-id="register-input" />
+                  <Field as={Input} name="username" />
                   <FormErrorMessage>{errors.username}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.email}>
                   <FormLabel>Email</FormLabel>
-                  <Field as={Input} name="email" test-id="register-email" />
+                  <Field as={Input} name="email" />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.password}>
                   <FormLabel>Password</FormLabel>
-                  <Field
-                    as={Input}
-                    name="password"
-                    type="password"
-                    test-id="register-password"
-                  />
+                  <Field as={Input} name="password" type="password" />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
               </Flex>
@@ -116,11 +111,7 @@ const RegisterIndex = () => {
                 <Button variant="link">
                   <Link to="/login">Already have an account? Login here</Link>
                 </Button>
-                <Button
-                  type="submit"
-                  isLoading={handleRegistration.isLoading}
-                  test-id="register-button"
-                >
+                <Button type="submit" isLoading={handleRegistration.isLoading}>
                   Register
                 </Button>
               </Flex>

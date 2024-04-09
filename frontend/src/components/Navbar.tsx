@@ -10,23 +10,18 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import useThemeColor from "../hooks/useThemeColor";
 import { deleteCachedUser, useSession } from "../utils/auth";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   const colorToggleIcon = colorMode === "dark" ? <SunIcon /> : <MoonIcon />;
-
   const { backgroundColor, borderColor } = useThemeColor();
   const { user } = useSession();
-
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     deleteCachedUser();
     window.location.reload();
   };
-
   return (
     <Box
       bg={backgroundColor}
@@ -45,29 +40,17 @@ const Navbar = () => {
           <Box>
             <Text fontWeight="bold">Learning U</Text>
           </Box>
-          {user && (
-            <Box display="flex" gap={2}>
-              <Button onClick={() => navigate("/dashboard")} variant="link">
-                Dashboard
-              </Button>
-              <Button
-                onClick={() => navigate("/feed")}
-                variant="link"
-                test-id="feed-navbar"
-              >
-                Feed
-              </Button>
-              <Button onClick={() => navigate("/featured")} variant="link">
-                Featured
-              </Button>
-              <Button
-                onClick={() => navigate(`profile/${user?.objectId}`)}
-                variant="link"
-              >
-                Profile
-              </Button>
-            </Box>
-          )}
+          <Box display="flex" gap={2}>
+            <Button onClick={() => toggleColorMode()} variant="link">
+              Dashboard
+            </Button>
+            <Button onClick={() => toggleColorMode()} variant="link">
+              Profile
+            </Button>
+            <Button onClick={() => toggleColorMode()} variant="link">
+              Logout
+            </Button>
+          </Box>
         </Box>
         <Box>
           <IconButton

@@ -13,11 +13,11 @@ import axios, { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useMutation } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useThemeColor from "../../hooks/useThemeColor";
 import { ErrorType } from "../../types/requests";
 import { IUser } from "../../types/user";
-import { persistUser, useSession } from "../../utils/auth";
+import { persistUser } from "../../utils/auth";
 import { baseURL } from "../../utils/constants";
 import * as Yup from "yup";
 
@@ -35,7 +35,6 @@ const LoginIndex = () => {
   const { backgroundColor, borderColor } = useThemeColor();
 
   const toast = useToast();
-  const navigate = useNavigate();
   const handleOnSubmit = (values: ILoginForm) => {
     handleLogin.mutate(values);
   };
@@ -48,7 +47,6 @@ const LoginIndex = () => {
     {
       onSuccess: (user) => {
         persistUser(user);
-        navigate("/dashboard", { replace: true });
         window.location.reload();
       },
       onError: (error: AxiosError<ErrorType>) => {
@@ -86,17 +84,12 @@ const LoginIndex = () => {
                 <Heading as="h1">Welcome back!</Heading>
                 <FormControl isInvalid={touched.username && !!errors.username}>
                   <FormLabel>Username or email</FormLabel>
-                  <Field as={Input} name="username" test-id="login-input" />
+                  <Field as={Input} name="username" />
                   <FormErrorMessage>{errors.username}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={touched.password && !!errors.password}>
                   <FormLabel>Password</FormLabel>
-                  <Field
-                    as={Input}
-                    name="password"
-                    type="password"
-                    test-id="login-password"
-                  />
+                  <Field as={Input} name="password" type="password" />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
               </Flex>
@@ -109,11 +102,7 @@ const LoginIndex = () => {
                     Don{"'"}t have an account yet? Register here!
                   </Link>
                 </Button>
-                <Button
-                  type="submit"
-                  isLoading={handleLogin.isLoading}
-                  test-id="login-button"
-                >
+                <Button type="submit" isLoading={handleLogin.isLoading}>
                   Login
                 </Button>
               </Flex>
