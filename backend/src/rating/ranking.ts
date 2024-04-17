@@ -49,7 +49,7 @@ export function getRawExternalRanking(
 ): IRawYoutubeVideo[] {
   return videos.map((video) => {
     const daysSincePublished = getDaysSincePublished(video.snippet.publishedAt);
-    const yearsSincePublished = daysSincePublished / 365;
+    const yearsSincePublished = daysSincePublished / 264;
 
     const rawDateScore = getDateScore(yearsSincePublished);
     const rawDateXViewsScore = getDateXViewsScore(
