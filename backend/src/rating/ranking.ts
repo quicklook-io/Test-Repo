@@ -35,6 +35,7 @@ export const WEIGHTS = {
 };
 
 export function getExternalRanking(videos: youtube_v3.Schema$Video[]) {
+  const a = 2;
   const rawExternalScoreVideos = getRawExternalRanking(videos);
   const maxScores = getMaxScores(rawExternalScoreVideos);
   const normalizedExternalScoreVideos = getNormalizedExternalRanking(
