@@ -34,7 +34,7 @@ export const WEIGHTS = {
   weight6: 0,
 };
 
-export const getExternalRanking = (videos: youtube_v3.Schema$Video[]) => {
+export function getExternalRanking(videos: youtube_v3.Schema$Video[]) {
   const rawExternalScoreVideos = getRawExternalRanking(videos);
   const maxScores = getMaxScores(rawExternalScoreVideos);
   const normalizedExternalScoreVideos = getNormalizedExternalRanking(
@@ -42,11 +42,11 @@ export const getExternalRanking = (videos: youtube_v3.Schema$Video[]) => {
     maxScores
   );
   return getWeightedExternalRanking(normalizedExternalScoreVideos);
-};
+}
 
-export const getRawExternalRanking = (
+export function getRawExternalRanking(
   videos: youtube_v3.Schema$Video[]
-): IRawYoutubeVideo[] => {
+): IRawYoutubeVideo[] {
   return videos.map((video) => {
     const daysSincePublished = getDaysSincePublished(video.snippet.publishedAt);
     const yearsSincePublished = daysSincePublished / 365;
@@ -72,12 +72,12 @@ export const getRawExternalRanking = (
       },
     };
   });
-};
+}
 
-export const getNormalizedExternalRanking = (
+export function getNormalizedExternalRanking(
   videos: IRawYoutubeVideo[],
   maxScores: IMaxScores
-): INormalizedYoutubeVideo[] => {
+): INormalizedYoutubeVideo[] {
   return videos.map((video) => {
     return {
       ...video,
@@ -97,11 +97,11 @@ export const getNormalizedExternalRanking = (
       },
     };
   });
-};
+}
 
-export const getWeightedExternalRanking = (
+export function getWeightedExternalRanking(
   videos: INormalizedYoutubeVideo[]
-): IWeightedYoutubeVideo[] => {
+): IWeightedYoutubeVideo[] {
   return videos.map((video) => {
     const weighted_score = {
       date: video.normalized_score.date * WEIGHTS.weight1,
@@ -121,11 +121,11 @@ export const getWeightedExternalRanking = (
       final_score,
     };
   });
-};
+}
 
-export const getMaxScores = (
+export function getMaxScores(
   rawExternalRankingVideos: IRawYoutubeVideo[]
-): IMaxScores => {
+): IMaxScores {
   const maxScore = {
     dateXViews: 0,
     dateXLikes: 0,
@@ -143,34 +143,31 @@ export const getMaxScores = (
   }
 
   return maxScore;
-};
+}
 
-export const getDateScore = (yearsSincePublished: number) => {
+export function getDateScore(yearsSincePublished: number) {
   // Following the function in https://docs.google.com/document/d/1zxYRyytmbbvfAZkQc8dampD9Vhun0XQtWepKYxWUTKo
   return Math.max(-Math.pow(1.6, yearsSincePublished) + 11, 0);
-};
+}
 
-export const getDateXViewsScore = (
-  views: number,
-  daysSincePublished: number
-) => {
+export function getDateXViewsScore(views: number, daysSincePublished: number) {
   return views / daysSincePublished;
-};
+}
 
-export const getDateXLikes = (likes: number, daysSincePublished: number) => {
+export function getDateXLikes(likes: number, daysSincePublished: number) {
   return likes / daysSincePublished;
-};
+}
 
-export const getUseOfChapters = (description: string) => {
+export function getUseOfChapters(description: string) {
   const usesChapters = description.match("[0-9]:[0-9]");
   return usesChapters !== null ? 1 : 0;
-};
+}
 
-export const getDaysSincePublished = (publishedAt: string) => {
+export function getDaysSincePublished(publishedAt: string) {
   const publishedAtDate = parseISO(publishedAt);
   const daysSincePublished = differenceInCalendarDays(
     new Date(),
     publishedAtDate
   );
   return daysSincePublished;
-};
+}
