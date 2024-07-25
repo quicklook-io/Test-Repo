@@ -26,10 +26,10 @@ Finally, we apply weights to each `ranking-feature` so it matches the formula pr
 */
 
 export const WEIGHTS = {
-  weight1: 60,
-  weight2: 40,
-  weight3: 100,
-  weight4: 0,
+  weight1: 70,
+  weight2: 30,
+  weight3: 60,
+  weight4: 40,
   weight5: 100,
   weight6: 0,
 };
