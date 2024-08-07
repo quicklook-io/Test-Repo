@@ -15,7 +15,7 @@ export const getVideosByQuery = async (query: string, limit: number) => {
 export const getVideoDetailByIds = async (ids: string[], limit: number) => {
   const result = await youtube.videos.list({
     id: ids,
-    part: ["snippet", "contentDetails", "statistics"],
+    part: ["contentDetails", "statistics"],
     maxResults: limit,
   });
   return result;
