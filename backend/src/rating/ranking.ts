@@ -29,8 +29,8 @@ export const WEIGHTS = {
   weight1: 70,
   weight2: 30,
   weight3: 60,
-  weight4: 40,
-  weight5: 100,
+  weight4: 30,
+  weight5: 70,
   weight6: 0,
 };
 
