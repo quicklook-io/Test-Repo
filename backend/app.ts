@@ -20,13 +20,6 @@ app.use(cors());
 app.use("/auth", auth);
 app.use("/debug", debug);
 
-app.get("/", async (req, res) => {
-  const testObject = new Parse.Object("test");
-  testObject.set("field1", "cool");
-  const result = await testObject.save();
-  res.send(result);
-});
-
 app.use((req, res, next) => {
   next(new NotFoundError());
 });
